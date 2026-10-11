@@ -33,6 +33,32 @@ class Repo(unittest.TestCase):
             self.assertGreater(len(fm), 200, "%s description is too thin" % s)
             self.assertGreater(len(text.splitlines()), 60, s)
 
+    def test_codex_cloud_skills_keep_their_local_resources(self):
+        for skill in ("replica-recon", "replica-entrepreneur"):
+            source = os.path.join(ROOT, skill)
+            target = os.path.join(ROOT, ".agents", "skills", skill)
+            def files_under(path):
+                files = []
+                for root, directories, filenames in os.walk(path):
+                    directories[:] = [d for d in directories if d != "__pycache__"]
+                    files.extend(
+                        os.path.relpath(os.path.join(root, filename), path)
+                        for filename in filenames if not filename.endswith(".pyc")
+                    )
+                return sorted(files)
+
+            source_files = files_under(source)
+            target_files = files_under(target)
+            self.assertEqual(target_files, source_files, skill)
+            for relative_path in source_files:
+                with open(os.path.join(source, relative_path), "rb") as original:
+                    with open(os.path.join(target, relative_path), "rb") as copied:
+                        self.assertEqual(copied.read(), original.read(),
+                                         "%s/%s" % (skill, relative_path))
+            fm, _ = frontmatter(os.path.join(target, "SKILL.md"))
+            self.assertIn("name: %s\n" % skill, fm + "\n", skill)
+            self.assertRegex(fm, r"description: ", skill)
+
     def test_plugin_manifest_points_at_the_root_skills(self):
         with open(os.path.join(ROOT, ".claude-plugin", "plugin.json")) as fh:
             plugin = json.load(fh)

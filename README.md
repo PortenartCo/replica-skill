@@ -33,6 +33,16 @@ Or as a plugin, in Claude Code:
 /plugin install replica-skill@replica-skill
 ```
 
+## Codex Cloud
+
+This repository also exposes `replica-recon` and `replica-entrepreneur` as
+project skills in `.agents/skills/`. Each directory includes its `SKILL.md`
+and the local templates or helper files it needs. Open this repository at a
+branch containing this change in a new Codex Cloud session to discover them.
+After the change is merged, the default branch is sufficient. To confirm
+discovery, ask Codex to list its available skills or invoke `$replica-recon`
+and `$replica-entrepreneur` explicitly in that session.
+
 Claude Code namespaces plugin skills, so installed as a plugin they show up as
 `/replica-skill:replica-recon` and so on. Copy the folders instead if you want
 plain `/replica-recon`:
