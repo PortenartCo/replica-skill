@@ -8,7 +8,7 @@ description: >-
   positioning angle you can sell. Every quote is real, verbatim and linked.
   Use when the user says "what do people hate about X", "read the reviews",
   "how do I make mine better", "find the gap", "what features are missing",
-  "how do I position this", "make it sellable", or after /replica-diff.
+  "how do I position this", "make it sellable", or after a parity comparison.
 ---
 
 # replica-entrepreneur
@@ -19,7 +19,7 @@ what the original's users hate, in their own words, and fixes it in yours.
 Tool in this folder:
 
 ```bash
-python3 reviews.py replica/reviews.csv --out replica/feedback.md
+python3 .agents/skills/replica-entrepreneur/reviews.py replica/reviews.csv --out replica/feedback.md
 ```
 
 ## The rules, which are not negotiable
@@ -62,7 +62,7 @@ best fixes hide.
 ## Step 2: rank
 
 ```bash
-python3 reviews.py replica/reviews.csv --out replica/feedback.md
+python3 .agents/skills/replica-entrepreneur/reviews.py replica/reviews.csv --out replica/feedback.md
 ```
 
 It sorts reviews into themes (`themes.json`, edit it for the app's category),
@@ -89,7 +89,7 @@ a trend.
 Pick the top 5 to 8 by evidence times how cheaply you can fix them. For each:
 what to build or change, size (S, M, L), which skill does it, and the
 evidence. Add each one to `replica/features.csv` as a row with `original` set
-to `no`. Pricing and billing complaints go to `/replica-launch`.
+to `no`. Pricing and billing complaints belong in the launch planning step.
 
 ## Step 5: the angle
 
@@ -101,12 +101,15 @@ For {{who}} who {{hate this about the original, in plain words}},
 Evidence: {{theme}}, {{n}} reviews across {{n}} sources.
 ```
 
-Recommend one. It drives replica-brand's name and voice and replica-launch's
-hero. Do not put the original's name in your app name, ads or store listing.
+Recommend one. The angle informs the new app's name and voice during branding,
+plus the launch page's hero copy. Do not try to invoke other Replica skills
+unless they are available in this Codex workspace. Do not put the original's
+name in your app name, ads or store listing.
 A factual comparison page is a legal question for a lawyer in your country.
 
 ## Output
 
 `replica/reviews.csv`, `replica/feedback.md`, `replica/fixes.md` (three
 lists, fix plan, angle), new rows in `features.csv`, and a summary that
-states the sample size. Next: `/replica-brand`.
+states the sample size. The next workflow step is branding; this Codex
+package does not include a branding skill.

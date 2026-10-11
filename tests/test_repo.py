@@ -51,6 +51,8 @@ class Repo(unittest.TestCase):
             target_files = files_under(target)
             self.assertEqual(target_files, source_files, skill)
             for relative_path in source_files:
+                if relative_path == "SKILL.md":
+                    continue
                 with open(os.path.join(source, relative_path), "rb") as original:
                     with open(os.path.join(target, relative_path), "rb") as copied:
                         self.assertEqual(copied.read(), original.read(),
@@ -58,6 +60,12 @@ class Repo(unittest.TestCase):
             fm, _ = frontmatter(os.path.join(target, "SKILL.md"))
             self.assertIn("name: %s\n" % skill, fm + "\n", skill)
             self.assertRegex(fm, r"description: ", skill)
+            with open(os.path.join(target, "SKILL.md"), encoding="utf-8") as skill_file:
+                skill_text = skill_file.read()
+            self.assertNotRegex(skill_text, r"/replica-(?:architect|brand|launch|diff)\b")
+            if skill == "replica-entrepreneur":
+                self.assertIn("python3 .agents/skills/replica-entrepreneur/reviews.py",
+                              skill_text)
 
     def test_plugin_manifest_points_at_the_root_skills(self):
         with open(os.path.join(ROOT, ".claude-plugin", "plugin.json")) as fh:

@@ -106,13 +106,13 @@ Booking  id, event_type_id, start_at, end_at, guest_name, guest_email,
          confidence: high
 ```
 
-Mark guesses as guesses. replica-architect turns this into a real schema.
+Mark guesses as guesses. The architecture step turns this into a real schema.
 
 ## Step 7: feature matrix
 
 Write `replica/features.csv` (columns: feature, area, priority, original,
 clone, notes). Priority is must / should / could. `clone` starts at `no` for
-every row and gets filled in during the build. replica-diff scores it.
+every row and gets filled in during the build. A parity comparison scores it.
 
 ## Step 8: what cannot be cloned
 
@@ -131,4 +131,5 @@ few weeks), L (a quarter), XL (rescope it). No promises of a perfect clone.
 
 `replica/recon.md` and `replica/features.csv`, then a five-line summary: the
 core loop, screen and flow counts, the three hardest parts, what is out of
-scope, and the next step: `/replica-architect`.
+scope, and the next step: plan the stack, schema and build order. This Codex
+package does not include an architecture skill.
